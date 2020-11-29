@@ -91,7 +91,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="303dp"
             android:layout_marginBottom="0dp"
-            android:background="#FFFFFF"
+            android:background="#AFADAD"
             android:drawableTop="@drawable/home"
             android:foregroundGravity="top|center"
             android:text="Inicio"
