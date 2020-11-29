@@ -157,10 +157,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
 
     private void updateUI(FirebaseUser currentUser) {
-   if (currentUser!=null){
-       Intent intent=new Intent(getApplicationContext(),Mapa.class);
-       startActivity(intent);
-   }
+       if (currentUser!=null){
+           Intent intent=new Intent(getApplicationContext(),Mapa.class);
+           startActivity(intent);
+       }
     }
 
     @Override
