@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             @Override
             public void onResponse(String response) {
                 if (!response.isEmpty()){
-                    Intent intent=new Intent(getApplicationContext(),Mapa.class);
+                    Intent intent=new Intent(getApplicationContext(),MenuPrincipal.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "Usuario o contraseña incorrecta", Toast.LENGTH_SHORT).show();
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void updateUI(FirebaseUser currentUser) {
        if (currentUser!=null){
-           Intent intent=new Intent(getApplicationContext(),Mapa.class);
+           Intent intent=new Intent(getApplicationContext(),MenuPrincipal.class);
            startActivity(intent);
        }
     }
