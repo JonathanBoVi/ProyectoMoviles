@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 public class Favoritos extends AppCompatActivity {
 
     Button btnInicio,btnRecomendado,btnConfiguracion;
+    private ListView lista;
+    private Adaptador adaptador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class Favoritos extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //lista = findViewById(R.id.)
 
 
     }
