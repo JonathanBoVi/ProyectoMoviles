@@ -1,5 +1,8 @@
 package com.bonilla.proyecto;
 
+import android.media.Rating;
+import android.widget.RatingBar;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -29,4 +32,5 @@ public class Hotel {
     public String getDescripcionHotel() {
         return descripcionHotel;
     }
+
 }

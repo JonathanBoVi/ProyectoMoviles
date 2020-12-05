@@ -56,7 +56,7 @@ public class Favoritos extends AppCompatActivity {
 
     private ArrayList<Hotel> GetArrayItem(){
         ArrayList<Hotel> listaItem = new ArrayList<>();
-        listaItem.add(new Hotel(R.drawable.casandina, "Casa de la Luna", "José Bernardo Alcedo 250"));
+        listaItem.add(new Hotel(R.drawable.winmeier, "Win Meier", "Av. Francisco Bolognesi 756"));
         listaItem.add(new Hotel(R.drawable.lancelot, "Lancelot", "Alfonso Ugarte 639"));
         listaItem.add(new Hotel(R.drawable.mochiks, "Mochiks", "Tacna 615"));
 

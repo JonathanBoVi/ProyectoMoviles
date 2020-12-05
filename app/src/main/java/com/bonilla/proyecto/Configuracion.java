@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -82,8 +83,6 @@ public class Configuracion extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     private void tomarFoto(){
@@ -120,6 +119,15 @@ public class Configuracion extends AppCompatActivity {
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, cameraIntents.toArray(new Parcelable[cameraIntents.size()]));
 
         startActivityForResult(chooserIntent, 1);
+    }
+
+    private ArrayList<Hotel> GetArrayItem(){
+        ArrayList<Hotel> listaItem = new ArrayList<>();
+        listaItem.add(new Hotel(R.drawable.casandina, "Casa Andina Select", "Federico Villarreal 115"));
+        listaItem.add(new Hotel(R.drawable.sunec, "Sunec Hotel", "Manuel María Izaga 472"));
+        listaItem.add(new Hotel(R.drawable.tumbasreales, "Tumbas Reales", "calle Andalucia 198 - 208 urb"));
+
+        return listaItem;
     }
 
 
