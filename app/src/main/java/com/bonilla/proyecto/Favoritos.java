@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 public class Favoritos extends AppCompatActivity {
 
     Button btnInicio,btnRecomendado,btnConfiguracion;
@@ -46,8 +48,18 @@ public class Favoritos extends AppCompatActivity {
             }
         });
 
-        //lista = findViewById(R.id.)
+        lista = (ListView) findViewById(R.id.lblItem);
+        adaptador = new Adaptador(this, GetArrayItem());
+        lista.setAdapter(adaptador);
 
+    }
 
+    private ArrayList<Hotel> GetArrayItem(){
+        ArrayList<Hotel> listaItem = new ArrayList<>();
+        listaItem.add(new Hotel(R.drawable.casandina, "Casa de la Luna", "José Bernardo Alcedo 250"));
+        listaItem.add(new Hotel(R.drawable.lancelot, "Lancelot", "Alfonso Ugarte 639"));
+        listaItem.add(new Hotel(R.drawable.mochiks, "Mochiks", "Tacna 615"));
+
+        return listaItem;
     }
 }

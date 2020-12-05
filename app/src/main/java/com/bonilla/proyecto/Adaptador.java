@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Adaptador extends BaseAdapter {
+public class Adaptador extends BaseAdapter{
     private Context context;
     private ArrayList<Hotel> listaItems;
 
@@ -23,19 +23,16 @@ public class Adaptador extends BaseAdapter {
 
     @Override
     public int getCount() {
-
         return listaItems.size();
     }
 
     @Override
     public Object getItem(int position) {
-
         return listaItems.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-
         return 0;
     }
 
@@ -43,7 +40,7 @@ public class Adaptador extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Hotel item = (Hotel) getItem(position);
 
-        convertView = LayoutInflater.from(context).inflate(R.layout.activity_favoritos,null);
+        convertView = LayoutInflater.from(context).inflate(R.layout.lista_hotel,null);
         ImageView img = (ImageView) convertView.findViewById(R.id.imgHotel);
         TextView txtHotel = (TextView) convertView.findViewById(R.id.txtNombreHotel);
         TextView txtDescripcion = (TextView) convertView.findViewById(R.id.txtDescripcionHotel);

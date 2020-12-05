@@ -5,10 +5,10 @@ public class Hotel {
     private String nombreHotel;
     private String descripcionHotel;
 
-    public Hotel(int img, String titulo, String contenido) {
+    public Hotel(int img, String nombreHotel, String descripcionHotel) {
         this.img =  img;
-        this.nombreHotel = titulo;
-        this.descripcionHotel = contenido;
+        this.nombreHotel = nombreHotel;
+        this.descripcionHotel = descripcionHotel;
     }
 
     public int getImg() {
