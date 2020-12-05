@@ -1,5 +1,12 @@
 package com.bonilla.proyecto;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import java.util.ArrayList;
+
 public class Hotel {
     private int img;
     private String nombreHotel;
