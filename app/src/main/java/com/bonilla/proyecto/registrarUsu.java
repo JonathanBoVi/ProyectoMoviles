@@ -62,21 +62,7 @@ public class registrarUsu extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener listHac=new View.OnClickListener(){
-        @Override
-        public void onClick(View v) {
-            tomarFoto();
-        }
-    };
 
-    private View.OnClickListener listReg=new View.OnClickListener(){
-        @Override
-        public void onClick(View v) {
-            registrarUsuario("http://proyectofinalhotel.000webhostapp.com/registrar.php");
-            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-            startActivity(intent);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,23 +71,34 @@ public class registrarUsu extends AppCompatActivity {
         btnCan=findViewById(R.id.btnCancelar);
         btnCan.setOnClickListener(listCan);
         btnRegis=findViewById(R.id.btnRegistrar);
-        btnRegis.setOnClickListener(listReg);
+      //  btnRegis.setOnClickListener(listReg);
         usu=findViewById(R.id.txtUsu);
         cont=findViewById(R.id.txtCont);
         nom=findViewById(R.id.txtNombre);
         dire=findViewById(R.id.txtDireccion);
         telf=findViewById(R.id.txtTelefono);
-        btnHac=findViewById(R.id.btnHacer);
-        btnHac.setOnClickListener(listHac);
 
+
+        btnRegis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registrarUsuario("http://proyectofinalhotel.000webhostapp.com/registrar.php");
+                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
+
+
 
     private void registrarUsuario(String URL){
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (response.equalsIgnoreCase("Usuario Registrado")){
+                Log.e("USU",response);
+                if (response.equalsIgnoreCase("Usuario registrado")){
+                    Toast.makeText(registrarUsu.this, "Usuario Registrado Correctamente", Toast.LENGTH_SHORT).show();
                     alerta();
                 } else {
                     Toast.makeText(registrarUsu.this, "Ocurrio un error intentalo de nuevo", Toast.LENGTH_SHORT).show();
@@ -120,12 +117,11 @@ public class registrarUsu extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros=new HashMap<String,String>();
-                parametros.put("usuario",usuario);
-                parametros.put("contrasena",contra);
-                parametros.put("nombre",nombre);
-                parametros.put("foto",foto="0");
-                parametros.put("direc",direcci);
-                parametros.put("tele",telefo);
+                parametros.put("usuario",usu.getText().toString());
+                parametros.put("contrasena",cont.getText().toString());
+                parametros.put("nombre",nom.getText().toString());
+                parametros.put("direc",dire.getText().toString());
+                parametros.put("tele",telf.getText().toString());
                 return parametros;
             }
         };
@@ -218,10 +214,6 @@ public class registrarUsu extends AppCompatActivity {
             }
         }
     }
-
-
-
-
 
 
 }
