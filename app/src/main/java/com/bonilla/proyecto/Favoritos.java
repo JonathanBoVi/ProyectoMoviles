@@ -59,7 +59,8 @@ public class Favoritos extends AppCompatActivity {
         listaItem.add(new Hotel(R.drawable.winmeier, "Win Meier", "Av. Francisco Bolognesi 756"));
         listaItem.add(new Hotel(R.drawable.lancelot, "Lancelot", "Alfonso Ugarte 639"));
         listaItem.add(new Hotel(R.drawable.mochiks, "Mochiks", "Tacna 615"));
-
+        listaItem.add(new Hotel(R.drawable.tumbasreales, "Hotel Tumbas Reales", "calle Andalucia 198 - 208 urb"));
+        listaItem.add(new Hotel(R.drawable.sunec, "Sunec Hotel Chiclayo", "Manuel María Izaga 472"));
         return listaItem;
     }
 }

@@ -59,7 +59,7 @@ public class Recomendados extends AppCompatActivity {
         listaItem.add(new Hotel(R.drawable.casandina, "Casa Andina Select", "Federico Villarreal 115"));
         listaItem.add(new Hotel(R.drawable.sunec, "Sunec Hotel", "Manuel María Izaga 472"));
         listaItem.add(new Hotel(R.drawable.tumbasreales, "Tumbas Reales", "calle Andalucia 198 - 208 urb"));
-
+        listaItem.add(new Hotel(R.drawable.winmeier, "Win Meier", "Av. Francisco Bolognesi 756"));
         return listaItem;
     }
 }
