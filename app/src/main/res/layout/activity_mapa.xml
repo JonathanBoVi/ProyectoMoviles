@@ -19,6 +19,20 @@
         android:text="Satelite"
         android:id="@+id/btnSatelite"/>
 
+    <ListView
+        android:id="@+id/lblItem"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"></ListView>
+
+
 </RelativeLayout>
 
 
