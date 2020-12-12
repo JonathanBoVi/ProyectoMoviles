@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
@@ -18,8 +21,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,18 +34,36 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.common.ErrorDialogFragment;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+
+import static android.os.FileUtils.copy;
 
 public class Configuracion extends AppCompatActivity {
 
@@ -49,6 +72,9 @@ public class Configuracion extends AppCompatActivity {
     private Bitmap bitmap;
     private ImageView imgFoto;
     private String KEY_IMAGEN = "foto";
+    private int tipo;
+    TextView correo,nombre,tele,dire;
+
 
     private View.OnClickListener lisFot=new View.OnClickListener(){
         @Override
@@ -66,8 +92,17 @@ public class Configuracion extends AppCompatActivity {
         btnInicio= findViewById(R.id.btnInicio);
         btnFavoritos= findViewById(R.id.btnFavoritos);
         btnRecomendados= findViewById(R.id.btnRecomendado);
+        correo= findViewById(R.id.txtCorreo);
+        nombre= findViewById(R.id.txtNombre);
+        tele=findViewById(R.id.txtTelefono);
+        dire=findViewById(R.id.txtDireccion);
+        imgFoto= findViewById(R.id.imgFoto);
+
         btnFoto=findViewById(R.id.btnFoto);
         btnFoto.setOnClickListener(lisFot);
+        mostarUsuario("http://proyectofinalhotel.000webhostapp.com/listarUsu.php");
+        new GetImageToURL().execute("https://proyectofinalhotel.000webhostapp.com/uploads/"+String.valueOf(Utilidades.getCorreo())+".png");
+
 
 
         btnCerrar.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +143,34 @@ public class Configuracion extends AppCompatActivity {
 
     }
 
+    private class GetImageToURL extends AsyncTask< String, Void, Bitmap > {
+
+        @Override
+        protected Bitmap doInBackground(String...params) {
+            try {
+                URL url = new URL(params[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                Bitmap myBitmap = BitmapFactory.decodeStream(input);
+                return myBitmap;
+            } catch (IOException e) {
+                // Log exception
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap myBitMap) {
+            if (myBitMap!=null){
+                imgFoto.setImageBitmap(myBitMap);
+            }
+
+        }
+    }
+
+
     private void uploadImage() {
         //Mostrar el diálogo de progreso
         final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor...", false, false);
@@ -119,6 +182,9 @@ public class Configuracion extends AppCompatActivity {
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
                         Toast.makeText(Configuracion.this, s, Toast.LENGTH_LONG).show();
+
+                        new GetImageToURL().execute("https://proyectofinalhotel.000webhostapp.com/uploads/"+String.valueOf(Utilidades.getCorreo())+".png");
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -141,6 +207,7 @@ public class Configuracion extends AppCompatActivity {
 
                 //Agregando de parámetros
                 params.put(KEY_IMAGEN, imagen);
+                params.put("correo", String.valueOf(Utilidades.getCorreo()));
 
                 //Parámetros de retorno
                 return params;
@@ -170,18 +237,23 @@ public class Configuracion extends AppCompatActivity {
             Uri filePath = data.getData();
             try {
                 //Cómo obtener el mapa de bits de la Galería
-                Log.e("Error1", "xd");
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
 
                 //Configuración del mapa de bits en ImageView
-                Log.e("Error2", "xd");
                 uploadImage();
                 //imgFoto.setImageBitmap(bitmap);
-                Log.e("Error3", "xd");
             } catch (IOException e) {
-                Log.e("ERROR REAL", e.getMessage());
-                e.printStackTrace();
+                try {
+                    Bundle extras = data.getExtras();
+                    bitmap = (Bitmap) extras.get("data");
+                    uploadImage();
+                } catch (Exception ex) {
+                    Log.e("ERROR REAL", e.getMessage());
+                    e.printStackTrace();
+                }
             }
+
+
         }
     }
 
@@ -219,6 +291,73 @@ public class Configuracion extends AppCompatActivity {
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, cameraIntents.toArray(new Parcelable[cameraIntents.size()]));
 
         startActivityForResult(chooserIntent, 1);
+
     }
+
+    private void mostarUsuario(String URL){
+
+        if (Utilidades.getTipoSesion()==1){
+            StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    if (!response.isEmpty()){
+                        try {
+                            JSONArray jsonArr = new JSONArray(response);
+
+                            JSONObject objeto = jsonArr.getJSONObject(0);
+                            String usuario = objeto.getString("usuario");
+                            String nombreCompleto = objeto.getString("nombreCompleto");
+                            String foto = objeto.getString("foto");
+                            String direccion = objeto.getString("direccion");
+                            String telefono = objeto.getString("telefono");
+
+                            Log.e("txt","pruebita");
+                            correo.setText(usuario);
+                            nombre.setText(nombreCompleto);
+                            tele.setText(telefono);
+                            dire.setText(direccion);
+
+
+                            Log.e("txt2","pruebita2");
+
+                        } catch (JSONException e) {
+                            Log.e("catch",e.getMessage());
+                        }
+
+                    } else {
+                        Toast.makeText(Configuracion.this, "Error al mostrar usuario", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(Configuracion.this,error.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> parametros=new HashMap<String,String>();
+                    parametros.put("usu",Utilidades.getCorreo());
+                    return parametros;
+                }
+            };
+
+            RequestQueue requestQueue= Volley.newRequestQueue(this);
+            requestQueue.add(stringRequest);
+        } else{
+            FirebaseUser auth= FirebaseAuth.getInstance().getCurrentUser();
+            correo.setText(auth.getEmail());
+            nombre.setText(auth.getDisplayName());
+            tele.setText(auth.getPhoneNumber());
+
+
+
+        }
+
+
+    }
+
 
 }

@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     Button btnLogin,btnRegistrar;
     String usuario, password;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,12 +116,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             @Override
             public void onResponse(String response) {
                 if (!response.isEmpty()){
+                    Utilidades.setTipoSesion(1);
+                    Utilidades.setCorreo(user.getText().toString());
                     Intent intent=new Intent(getApplicationContext(),MenuPrincipal.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "Usuario o contraseña incorrecta", Toast.LENGTH_SHORT).show();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -212,8 +215,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("por2", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Utilidades.setTipoSesion(0);
+                            Utilidades.setCorreo(user.getEmail());
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
