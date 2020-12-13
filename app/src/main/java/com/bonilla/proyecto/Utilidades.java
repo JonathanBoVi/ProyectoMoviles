@@ -19,4 +19,5 @@ public class Utilidades{
     public static void setTipoSesion(int tipoSesion) {
         Utilidades.tipoSesion = tipoSesion;
     }
+
 }

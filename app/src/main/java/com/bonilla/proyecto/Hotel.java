@@ -11,6 +11,7 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.ArrayList;
 
 public class Hotel {
+    private int idHotel;
     private int img;
     private String nombreHotel;
     private String descripcionHotel;
@@ -33,4 +34,11 @@ public class Hotel {
         return descripcionHotel;
     }
 
+    public int getIdHotel() {
+        return idHotel;
+    }
+
+    public void setIdHotel(int idHotel) {
+        this.idHotel = idHotel;
+    }
 }

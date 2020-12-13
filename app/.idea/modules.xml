@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1300476340/Moviles - Proyecto-Proyecto final-ProyectoMoviles-Proyecto.iml" filepath="$PROJECT_DIR$/.idea/modules/-1300476340/Moviles - Proyecto-Proyecto final-ProyectoMoviles-Proyecto.iml" group="Proyecto" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1300476340/Proyecto.iml" filepath="$PROJECT_DIR$/.idea/modules/-1300476340/Proyecto.iml" group="Proyecto" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1300476340/Proyecto final-ProyectoMoviles-Proyecto.iml" filepath="$PROJECT_DIR$/.idea/modules/-1300476340/Proyecto final-ProyectoMoviles-Proyecto.iml" group="Proyecto" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Proyecto final-ProyectoMoviles-app.iml" filepath="$PROJECT_DIR$/.idea/modules/Proyecto final-ProyectoMoviles-app.iml" group="Proyecto/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Proyecto-app.iml" filepath="$PROJECT_DIR$/.idea/modules/Proyecto-app.iml" group="Proyecto/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1300476340/ProyectoMoviles-Proyecto.iml" filepath="$PROJECT_DIR$/.idea/modules/-1300476340/ProyectoMoviles-Proyecto.iml" group="Proyecto" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ProyectoMoviles-app.iml" filepath="$PROJECT_DIR$/.idea/modules/ProyectoMoviles-app.iml" group="Proyecto/app" />
