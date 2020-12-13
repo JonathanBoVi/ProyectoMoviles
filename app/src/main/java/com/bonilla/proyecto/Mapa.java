@@ -1,18 +1,12 @@
 package com.bonilla.proyecto;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.telephony.CarrierConfigManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,16 +19,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,14 +40,11 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private Button TipoBtn;
-    private Marker marcador;
+    private String nombrehot;
     String hotel="1";
     double lat = 0.0;
     double lng = 0.0;
 
-    Mapa datos;
-
-    String url="https://proyectofinalhotel.000webhostapp.com/listarHoteles.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +75,6 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         });
 
 
-
     }
 
     /**
@@ -109,7 +98,9 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 
         mostrarHoteles("http://proyectofinalhotel.000webhostapp.com/listarHot.php");
 
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
             return;
         }
         mMap.setMyLocationEnabled(true);
@@ -125,16 +116,43 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
                     if (!response.isEmpty()){
                         try {
                             JSONArray jsonArr = new JSONArray(response);
+                            IconGenerator iconFactory = new IconGenerator(getApplicationContext());
                             for (int i=0; i<jsonArr.length(); i++){
                                 JSONObject objeto = jsonArr.getJSONObject(i);
                                 String id = objeto.getString("id");
                                 Double latitud = objeto.getDouble("latitud");
                                 Double longitud = objeto.getDouble("longitud");
-                                String nombre = objeto.getString("nombre");
-                                Double color = objeto.getDouble("color");
+                                final String nombre = objeto.getString("nombre");
+                                final Double color = objeto.getDouble("color");
+
+                                Marker mar;
 
 
-                                mMap.addMarker(new MarkerOptions().position(new LatLng(latitud,longitud)).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(Float.parseFloat(color.toString()))));
+                              mar= mMap.addMarker(new MarkerOptions().position(new LatLng(latitud,longitud)).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(Float.parseFloat(color.toString()))));
+                              mar.setIcon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(nombre)));
+                              mar.showInfoWindow();
+
+                              mMap.addMarker(new MarkerOptions().position(new LatLng(latitud,longitud)).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(Float.parseFloat(color.toString()))));
+
+
+                                //mMap.addMarker(new MarkerOptions().position(new LatLng(latitud,longitud)).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(Float.parseFloat(color.toString())))).showInfoWindow();
+
+
+
+                                mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                    @Override
+
+                                    public boolean onMarkerClick(Marker m)
+                                    {
+                                       nombrehot = m.getTitle();
+                                        Utilidades.setNombreHotel(nombrehot);
+                                        Intent intent=new Intent(getApplicationContext(),DetalleHotel.class);
+                                        startActivity(intent);
+                                        return true;
+                                    }
+                                });
+
+
                             }
                         } catch (JSONException e) {
                             Log.e("catch","xd");
@@ -162,10 +180,14 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
                 parametros.put("marcador",hotel);
                 return parametros;
             }
+
+
         };
+
 
         RequestQueue requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+
 
     }
 
