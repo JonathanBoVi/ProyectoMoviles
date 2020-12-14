@@ -44,7 +44,7 @@ public class DetalleHotel extends AppCompatActivity {
         mostrarHoteles("https://proyectofinalhotel.000webhostapp.com/listarDetalleHotel.php");
         nombreHotel=findViewById(R.id.txtNombreHotel);
         direc=findViewById(R.id.txtDireccion);
-        descrip=findViewById(R.id.txtDireccion);
+        descrip=findViewById(R.id.txtDescripcion);
         estre=findViewById(R.id.txtEstrellas);
         nombreHotel.setText(Utilidades.getNombreHotel());
 
@@ -65,6 +65,7 @@ public class DetalleHotel extends AppCompatActivity {
 
                             direc.setText(direccion);
                             descrip.setText(descrpcion);
+                            estre.setRating(valoracion);
 
                         }
                     } catch (JSONException e) {

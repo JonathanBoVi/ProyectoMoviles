@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.exlyo.gmfmt.MarkerInfo;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,6 +30,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
+import com.exlyo.gmfmt.FloatingMarkerTitlesOverlay;
+import com.exlyo.gmfmt.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +48,8 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     String hotel="1";
     double lat = 0.0;
     double lng = 0.0;
+    private FloatingMarkerTitlesOverlay floatingMarkersOverlay;
+
 
 
     @Override
@@ -98,6 +104,8 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 
         mostrarHoteles("http://proyectofinalhotel.000webhostapp.com/listarHot.php");
 
+        floatingMarkersOverlay = findViewById(R.id.map_floating_markers_overlay);
+        floatingMarkersOverlay.setSource(googleMap);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -127,12 +135,17 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 
                                 Marker mar;
 
+                                final MarkerInfo mi = new MarkerInfo(new LatLng(latitud,longitud), nombre, Color.RED);
+                                mar= mMap.addMarker(new MarkerOptions().position(mi.getCoordinates()).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(Float.parseFloat(color.toString()))));
+                                floatingMarkersOverlay.setTextSizeDIP(18);
+                                floatingMarkersOverlay.addMarker(i, mi);
 
-                              mar= mMap.addMarker(new MarkerOptions().position(new LatLng(latitud,longitud)).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(Float.parseFloat(color.toString()))));
-                              mar.setIcon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(nombre)));
-                              mar.showInfoWindow();
 
-                              mMap.addMarker(new MarkerOptions().position(new LatLng(latitud,longitud)).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(Float.parseFloat(color.toString()))));
+                              //mar= mMap.addMarker(new MarkerOptions().position(new LatLng(latitud,longitud)).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(Float.parseFloat(color.toString()))));
+                            //  mar.setIcon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(nombre)));
+                             // mar.showInfoWindow();
+
+                             // mMap.addMarker(new MarkerOptions().position(new LatLng(latitud,longitud)).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(Float.parseFloat(color.toString()))));
 
 
                                 //mMap.addMarker(new MarkerOptions().position(new LatLng(latitud,longitud)).title(nombre).icon(BitmapDescriptorFactory.defaultMarker(Float.parseFloat(color.toString())))).showInfoWindow();

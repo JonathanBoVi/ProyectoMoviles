@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Entity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +20,11 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class Adaptador extends BaseAdapter{
     private Context context;
     private ArrayList<Hotel> listaItems;
-    private ImageView imgHotel;
 
     public Adaptador(Context context, ArrayList<Hotel> listaItems) {
         this.context = context;
@@ -48,20 +50,33 @@ public class Adaptador extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         Hotel item = (Hotel) getItem(position);
 
+
         convertView = LayoutInflater.from(context).inflate(R.layout.lista_hotel,null);
 
-        new GetImageToURL().execute("https://proyectofinalhotel.000webhostapp.com/uploads/"+String.valueOf(Utilidades.getCorreo())+String.valueOf(item.getIdHotel())+".png");
-        imgHotel = (ImageView) convertView.findViewById(R.id.imgHotel);
+
+
+        ImageView imgHotel = (ImageView) convertView.findViewById(R.id.imgHotel);
         TextView txtHotel = (TextView) convertView.findViewById(R.id.txtNombreHotel);
         TextView txtDescripcion = (TextView) convertView.findViewById(R.id.txtDescripcionHotel);
 
         //img.setImageResource(item.getImg());
+        //imgHotel.setImageBitmap(obj.getImage());
+        new GetImageToURL(imgHotel).execute("https://proyectofinalhotel.000webhostapp.com/uploads/"+String.valueOf(Utilidades.getCorreo())+String.valueOf(item.getIdHotel())+".png");
+
         txtHotel.setText(item.getNombreHotel());
+        Log.e("EROROROROROROROROR", String.valueOf(item.getIdHotel()));
         txtDescripcion.setText(item.getDescripcionHotel());
+
+        Log.e("xdd",item.getNombreHotel());
         return convertView;
     }
 
     private class GetImageToURL extends AsyncTask< String, Void, Bitmap> {
+        private ImageView img;
+
+        public GetImageToURL(ImageView img) {
+            this.img = img;
+        }
 
         @Override
         protected Bitmap doInBackground(String...params) {
@@ -82,7 +97,7 @@ public class Adaptador extends BaseAdapter{
         @Override
         protected void onPostExecute(Bitmap myBitMap) {
             if (myBitMap!=null){
-                imgHotel.setImageBitmap(myBitMap);
+                img.setImageBitmap(myBitMap);
             }
 
         }

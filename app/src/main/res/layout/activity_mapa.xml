@@ -19,6 +19,11 @@
         android:text="Satelite"
         android:id="@+id/btnSatelite"/>
 
+    <com.exlyo.gmfmt.FloatingMarkerTitlesOverlay
+        android:id="@+id/map_floating_markers_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 </RelativeLayout>
 

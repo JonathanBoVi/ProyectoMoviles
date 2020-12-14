@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -78,11 +79,12 @@ public class Favoritos extends AppCompatActivity {
             }
         });
 
-        lista = (ListView) findViewById(R.id.lblItem);
-        adaptador = new Adaptador(this, listaItem);
-        lista.setAdapter(adaptador);
 
+        lista = (ListView) findViewById(R.id.lblItem);
         listarFavoritos("http://proyectofinalhotel.000webhostapp.com/listarFav.php");
+      //  adaptador = new Adaptador(this, listaItem);
+       // lista.setAdapter(adaptador);
+
 
     }
 
@@ -94,8 +96,8 @@ public class Favoritos extends AppCompatActivity {
                 public void onResponse(String response) {
                     if (!response.isEmpty()) {
                         try {
-                            JSONArray jsonArr = new JSONArray(response);
 
+                            JSONArray jsonArr = new JSONArray(response);
                             for (int i = 0; i < jsonArr.length(); i++) {
                                 JSONObject objeto = jsonArr.getJSONObject(i);
                                 id = objeto.getInt("id");
@@ -104,8 +106,18 @@ public class Favoritos extends AppCompatActivity {
                                 Hotel hotelito = new Hotel(R.drawable.winmeier, nombre, descripcion);
                                 hotelito.setIdHotel(id);
                                 listaItem.add(hotelito);
+
+
+                                Log.e("response",listaItem.get(0).toString());
+
+
                             }
+
+                            adaptador = new Adaptador(getApplicationContext(), listaItem);
+                            lista.setAdapter(adaptador);
+
                         } catch (JSONException e) {
+                            Log.e("respo",e.getMessage());
                             e.printStackTrace();
                         }
                     } else {
@@ -121,7 +133,7 @@ public class Favoritos extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String,String> parametros=new HashMap<String,String>();
-                    parametros.put("usu",Utilidades.getCorreo());
+                    parametros.put("usu",String.valueOf(Utilidades.getCorreo()));
                     return parametros;
                 }
             };
