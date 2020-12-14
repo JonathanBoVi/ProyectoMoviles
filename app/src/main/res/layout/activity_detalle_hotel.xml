@@ -21,16 +21,16 @@
 
     <TextView
         android:id="@+id/txtDireccion"
-        android:layout_width="380dp"
-        android:layout_height="71dp"
+        android:layout_width="378dp"
+        android:layout_height="40dp"
         android:text="ioiio"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.939" />
+        app:layout_constraintVertical_bias="0.897" />
 
     <TextView
         android:id="@+id/txtNombreHotel6"
@@ -95,4 +95,17 @@
         app:layout_constraintTop_toTopOf="@+id/txtNombreHotel"
         app:layout_constraintVertical_bias="0.119"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnValorar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/encanta"
+        android:text="Valorar  "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 </androidx.constraintlayout.widget.ConstraintLayout>

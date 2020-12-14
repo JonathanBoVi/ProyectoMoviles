@@ -163,4 +163,6 @@ public class Favoritos extends AppCompatActivity {
         listaItem.add(new Hotel(R.drawable.sunec, "Sunec Hotel Chiclayo", "Manuel María Izaga 472"));
         return listaItem;
     }*/
+
+
 }

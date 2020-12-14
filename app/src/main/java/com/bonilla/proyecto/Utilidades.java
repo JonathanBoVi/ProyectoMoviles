@@ -4,6 +4,7 @@ public class Utilidades{
     private static String correo;
     private static int tipoSesion;
     private  static String nombreHotel;
+    private static int idHotel;
 
     public static String getNombreHotel() {
         return nombreHotel;
@@ -29,6 +30,13 @@ public class Utilidades{
         Utilidades.tipoSesion = tipoSesion;
     }
 
+    public static int getIdHotel() {
+        return idHotel;
+    }
+
+    public static void setIdHotel(int idHotel) {
+        Utilidades.idHotel = idHotel;
+    }
 }
 
 

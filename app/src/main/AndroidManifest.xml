@@ -26,7 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DetalleHotel"></activity>
+        <activity android:name=".registrarFavorito"></activity>
+        <activity android:name=".registrarFav" />
+        <activity android:name=".DetalleHotel" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
