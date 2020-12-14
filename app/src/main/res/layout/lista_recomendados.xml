@@ -36,6 +36,7 @@
             android:numStars="5"
             android:rating="4"
             android:clickable="false"
+            android:isIndicator="true"
             />
 
     </LinearLayout>

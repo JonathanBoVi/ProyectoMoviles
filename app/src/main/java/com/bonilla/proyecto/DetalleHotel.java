@@ -45,23 +45,31 @@ public class DetalleHotel extends AppCompatActivity {
 
     TextView nombreHotel,direc,descrip;
     RatingBar estre;
-    ImageView img;
+    private ImageView img;
     Button btnValorar;
+    private Bitmap bitmap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_hotel);
 
-        mostrarHoteles("https://proyectofinalhotel.000webhostapp.com/listarDetalleHotel.php");
+        btnValorar = findViewById(R.id.btnValorar);
         nombreHotel=findViewById(R.id.txtNombreHotel);
         direc=findViewById(R.id.txtDireccion);
         descrip=findViewById(R.id.txtDescripcion);
         estre=findViewById(R.id.txtEstrellas);
         nombreHotel.setText(Utilidades.getNombreHotel());
-
-        new GetImageToURL(img).execute("https://proyectofinalhotel.000webhostapp.com/uploads/"+String.valueOf(nombreHotel)+".png");
         img=findViewById(R.id.txtImagen);
+
+
+        mostrarHoteles("https://proyectofinalhotel.000webhostapp.com/listarDetalleHotel.php");
+        new GetImageToURL().execute("https://proyectofinalhotel.000webhostapp.com/uploads/"+Utilidades.getNombreHotel()+".png");
+        Log.e("xddd",Utilidades.getNombreHotel());
+
+
+
 
         btnValorar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,14 +78,15 @@ public class DetalleHotel extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
-    private class GetImageToURL extends AsyncTask< String, Void, Bitmap> {
-        private ImageView img;
+   private class GetImageToURL extends AsyncTask< String, Void, Bitmap> {
+      /*  private ImageView img;
 
         public GetImageToURL(ImageView img) {
-            this.img = img;
-        }
+          this.img   = img;
+        }*/
 
         @Override
         protected Bitmap doInBackground(String...params) {

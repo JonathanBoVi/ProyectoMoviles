@@ -61,7 +61,8 @@ public class Adaptador extends BaseAdapter{
 
         //img.setImageResource(item.getImg());
         //imgHotel.setImageBitmap(obj.getImage());
-        new GetImageToURL(imgHotel).execute("https://proyectofinalhotel.000webhostapp.com/uploads/"+String.valueOf(Utilidades.getCorreo())+String.valueOf(item.getIdHotel())+".png");
+      //  new GetImageToURL(imgHotel).execute("https://proyectofinalhotel.000webhostapp.com/uploads/"+String.valueOf(Utilidades.getCorreo())+String.valueOf(item.getIdHotel())+".png");
+       new GetImageToURL(imgHotel).execute("https://proyectofinalhotel.000webhostapp.com/uploads/"+item.getNombreHotel()+".png");
 
         txtHotel.setText(item.getNombreHotel());
         Log.e("EROROROROROROROROR", String.valueOf(item.getIdHotel()));

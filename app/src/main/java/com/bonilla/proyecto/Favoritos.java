@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -44,7 +45,9 @@ public class Favoritos extends AppCompatActivity {
     int id;
     String nombre, descripcion;
     private ImageView imgHotel;
+    private TextView nom;
     private ArrayList<Hotel> listaItem = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class Favoritos extends AppCompatActivity {
         btnRecomendado= findViewById(R.id.btnRecomendado);
         btnConfiguracion= findViewById(R.id.btnConfiguracion);
         imgHotel= findViewById(R.id.imgHotel);
+        nom=findViewById(R.id.txtNombreHotel);
 
         btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override

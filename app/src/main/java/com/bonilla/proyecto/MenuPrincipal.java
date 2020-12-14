@@ -10,6 +10,7 @@ import android.widget.Button;
 public class MenuPrincipal extends AppCompatActivity {
 
     Button btnConfiguracion,btnFavoritos,btnRecomendados,btnBuscar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
