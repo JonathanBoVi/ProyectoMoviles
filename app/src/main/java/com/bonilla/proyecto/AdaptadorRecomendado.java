@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -51,6 +53,7 @@ public class AdaptadorRecomendado extends BaseAdapter{
         TextView txtHotel = (TextView) convertView.findViewById((R.id.txtNombreHotel2));
         TextView txtDescripcion =  (TextView) convertView.findViewById(R.id.txtDescripcionHotel2);
         RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.txtEstrellas);
+        TextView txtVotos = (TextView) convertView.findViewById(R.id.txtVotos);
 
         new GetImageToURL(img).execute("https://proyectofinalhotel.000webhostapp.com/uploads/"+item.getNombreHotel()+".png");
 
@@ -58,6 +61,7 @@ public class AdaptadorRecomendado extends BaseAdapter{
         txtHotel.setText(item.getNombreHotel());
         txtDescripcion.setText(item.getDescripcionHotel());
         ratingBar.setRating(item.getCalificacion());
+        txtVotos.setText(item.getVotos());
 
         return convertView;
     }

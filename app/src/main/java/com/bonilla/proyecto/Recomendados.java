@@ -34,7 +34,7 @@ public class Recomendados extends AppCompatActivity {
     private AdaptadorRecomendado adaptador2;
 
     String nombre, descripcion;
-    int calificacion;
+    int calificacion, votos;
     private ArrayList<Hotel> listaItem = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,8 @@ public class Recomendados extends AppCompatActivity {
                             nombre = objeto.getString("nombre");
                             descripcion = objeto.getString("descripcion");
                             calificacion = objeto.getInt("calificacion");
-                            Hotel hotelito = new Hotel(R.drawable.winmeier, nombre, descripcion,calificacion);
+                            votos = objeto.getInt("votos");
+                            Hotel hotelito = new Hotel(R.drawable.winmeier, nombre, descripcion,calificacion,votos);
                             listaItem.add(hotelito);
 
 

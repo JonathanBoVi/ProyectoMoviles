@@ -16,6 +16,7 @@ public class Hotel {
     private String nombreHotel;
     private String descripcionHotel;
     private int calificacion;
+    private int votos;
 
     public Hotel(int img, String nombreHotel, String descripcionHotel) {
         this.img =  img;
@@ -23,11 +24,12 @@ public class Hotel {
         this.descripcionHotel = descripcionHotel;
     }
 
-    public Hotel(int img, String nombreHotel, String descripcionHotel, int calificacion){
+    public Hotel(int img, String nombreHotel, String descripcionHotel, int calificacion, int votos){
         this.img = img;
         this.nombreHotel = nombreHotel;
         this.descripcionHotel = descripcionHotel;
         this.calificacion = calificacion;
+        this.votos = votos;
     }
 
     public int getImg() {
@@ -56,5 +58,13 @@ public class Hotel {
 
     public void setCalificacion(int calificacion) {
         this.calificacion = calificacion;
+    }
+
+    public int getVotos() {
+        return votos;
+    }
+
+    public void setVotos(int votos) {
+        this.votos = votos;
     }
 }
