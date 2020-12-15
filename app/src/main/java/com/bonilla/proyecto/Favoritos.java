@@ -2,6 +2,7 @@ package com.bonilla.proyecto;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.bluetooth.le.AdvertisingSetParameters;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -58,7 +59,7 @@ public class Favoritos extends AppCompatActivity {
         btnConfiguracion= findViewById(R.id.btnConfiguracion);
         imgHotel= findViewById(R.id.imgHotel);
         nom=findViewById(R.id.txtNombreHotel);
-        btnEliminar=findViewById(R.id.btnEliminar);
+
 
      /*   */
 
@@ -92,13 +93,16 @@ public class Favoritos extends AppCompatActivity {
       //  adaptador = new Adaptador(this, listaItem);
        // lista.setAdapter(adaptador);
 
-     /* btnEliminar.setOnClickListener(new View.OnClickListener() {
+
+/*        btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eliminarFavorito("https://proyectofinalhotel.000webhostapp.com/eliminarFavorito.php");
-
+                Intent intent=new Intent(getApplicationContext(),Configuracion.class);
+                startActivity(intent);
             }
         });*/
+
+        //eliminarFavorito("https://proyectofinalhotel.000webhostapp.com/eliminarFavorito.php");
 
     }
 
@@ -157,12 +161,12 @@ public class Favoritos extends AppCompatActivity {
 
     }
 
-    private void eliminarFavorito(String URL){
+    public void eliminarFavorito(String URL){
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e("USU",response);
-                if (!response.isEmpty()) {
+                if (response.equalsIgnoreCase("Hotel eliminado de favoritos")) {
                     Log.e("po",response);
                     Toast.makeText(Favoritos.this, "Hotel eliminado de favoritos", Toast.LENGTH_SHORT).show();
 

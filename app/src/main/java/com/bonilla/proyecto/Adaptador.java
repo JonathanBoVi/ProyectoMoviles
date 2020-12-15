@@ -3,6 +3,7 @@ package com.bonilla.proyecto;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Entity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
@@ -12,14 +13,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class Adaptador extends BaseAdapter{
@@ -49,6 +62,7 @@ public class Adaptador extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Hotel item = (Hotel) getItem(position);
+        final Favoritos obj=new Favoritos();
 
 
         convertView = LayoutInflater.from(context).inflate(R.layout.lista_hotel,null);
@@ -58,6 +72,7 @@ public class Adaptador extends BaseAdapter{
         ImageView imgHotel = (ImageView) convertView.findViewById(R.id.imgHotel);
         TextView txtHotel = (TextView) convertView.findViewById(R.id.txtNombreHotel);
         TextView txtDescripcion = (TextView) convertView.findViewById(R.id.txtDescripcionHotel);
+        Button btnEliminar = (Button) convertView.findViewById(R.id.btnEliminar);
 
         //img.setImageResource(item.getImg());
         //imgHotel.setImageBitmap(obj.getImage());
@@ -65,8 +80,16 @@ public class Adaptador extends BaseAdapter{
        new GetImageToURL(imgHotel).execute("https://proyectofinalhotel.000webhostapp.com/uploads/"+item.getNombreHotel()+".png");
 
         txtHotel.setText(item.getNombreHotel());
-        Log.e("EROROROROROROROROR", String.valueOf(item.getIdHotel()));
         txtDescripcion.setText(item.getDescripcionHotel());
+
+      /*  btnEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                obj.eliminarFavorito("https://proyectofinalhotel.000webhostapp.com/eliminarFavorito.php");
+
+            }
+        });
+*/
 
         Log.e("xdd",item.getNombreHotel());
         return convertView;
@@ -103,6 +126,8 @@ public class Adaptador extends BaseAdapter{
 
         }
     }
+
+
 
 
 }
