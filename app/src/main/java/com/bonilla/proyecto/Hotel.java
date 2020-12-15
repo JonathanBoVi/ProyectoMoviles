@@ -15,11 +15,19 @@ public class Hotel {
     private int img;
     private String nombreHotel;
     private String descripcionHotel;
+    private int calificacion;
 
     public Hotel(int img, String nombreHotel, String descripcionHotel) {
         this.img =  img;
         this.nombreHotel = nombreHotel;
         this.descripcionHotel = descripcionHotel;
+    }
+
+    public Hotel(int img, String nombreHotel, String descripcionHotel, int calificacion){
+        this.img = img;
+        this.nombreHotel = nombreHotel;
+        this.descripcionHotel = descripcionHotel;
+        this.calificacion = calificacion;
     }
 
     public int getImg() {
@@ -40,5 +48,13 @@ public class Hotel {
 
     public void setIdHotel(int idHotel) {
         this.idHotel = idHotel;
+    }
+
+    public int getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(int calificacion) {
+        this.calificacion = calificacion;
     }
 }
