@@ -15,7 +15,12 @@ public class Hotel {
     private int img;
     private String nombreHotel;
     private String descripcionHotel;
+<<<<<<< HEAD
     private float calificacion;
+=======
+    private int calificacion;
+    private int votos;
+>>>>>>> 24f1fd0170b75bbd8f4df07efe84e9dfe8889d1e
 
     public Hotel(int img, String nombreHotel, String descripcionHotel) {
         this.img =  img;
@@ -23,11 +28,16 @@ public class Hotel {
         this.descripcionHotel = descripcionHotel;
     }
 
+<<<<<<< HEAD
     public Hotel(int img, String nombreHotel, String descripcionHotel, float calificacion){
+=======
+    public Hotel(int img, String nombreHotel, String descripcionHotel, int calificacion, int votos){
+>>>>>>> 24f1fd0170b75bbd8f4df07efe84e9dfe8889d1e
         this.img = img;
         this.nombreHotel = nombreHotel;
         this.descripcionHotel = descripcionHotel;
         this.calificacion = calificacion;
+        this.votos = votos;
     }
 
     public int getImg() {
@@ -56,5 +66,13 @@ public class Hotel {
 
     public void setCalificacion(float calificacion) {
         this.calificacion = calificacion;
+    }
+
+    public int getVotos() {
+        return votos;
+    }
+
+    public void setVotos(int votos) {
+        this.votos = votos;
     }
 }
