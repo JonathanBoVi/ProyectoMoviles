@@ -54,6 +54,7 @@ public class registrarFavorito extends AppCompatActivity {
                 registrarFav("http://proyectofinalhotel.000webhostapp.com/registrarFav.php");
                 Intent intent = new Intent(getApplicationContext(),Favoritos.class);
                 startActivity(intent);
+
             }
         });
 
@@ -74,7 +75,7 @@ public class registrarFavorito extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Toast.makeText(registrarFavorito.this, "Hotel registrado en sus favoritos", Toast.LENGTH_SHORT).show();
             }
         },new Response.ErrorListener() {
             @Override

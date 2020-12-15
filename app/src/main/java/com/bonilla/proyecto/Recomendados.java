@@ -34,7 +34,8 @@ public class Recomendados extends AppCompatActivity {
     private AdaptadorRecomendado adaptador2;
 
     String nombre, descripcion;
-    int calificacion, votos;
+    double calificacion;
+            int votos;
     private ArrayList<Hotel> listaItem = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class Recomendados extends AppCompatActivity {
                             JSONObject objeto = jsonArr.getJSONObject(i);
                             nombre = objeto.getString("nombre");
                             descripcion = objeto.getString("descripcion");
-                            calificacion = objeto.getInt("calificacion");
+                            calificacion = objeto.getDouble("calificacion");
                             votos = objeto.getInt("votos");
                             Hotel hotelito = new Hotel(R.drawable.winmeier, nombre, descripcion,calificacion,votos);
                             listaItem.add(hotelito);

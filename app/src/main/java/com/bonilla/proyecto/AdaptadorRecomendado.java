@@ -54,6 +54,7 @@ public class AdaptadorRecomendado extends BaseAdapter{
         TextView txtDescripcion =  (TextView) convertView.findViewById(R.id.txtDescripcionHotel2);
         RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.ratingbar);
         TextView txtVotos = (TextView) convertView.findViewById(R.id.txtVotos);
+        TextView comentarios = (TextView) convertView.findViewById(R.id.txtComentario);
 
         new GetImageToURL(img).execute("https://proyectofinalhotel.000webhostapp.com/uploads/"+item.getNombreHotel()+".png");
 
@@ -61,8 +62,8 @@ public class AdaptadorRecomendado extends BaseAdapter{
         txtHotel.setText(item.getNombreHotel());
         txtDescripcion.setText(item.getDescripcionHotel());
         ratingBar.setNumStars(5);
-        ratingBar.setRating(item.getCalificacion());
-        txtVotos.setText(item.getVotos());
+        ratingBar.setRating((float)item.getCalificacion());
+        txtVotos.setText(String.valueOf(item.getVotos()));
 
 
         return convertView;

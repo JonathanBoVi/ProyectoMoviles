@@ -90,19 +90,7 @@ public class Favoritos extends AppCompatActivity {
 
         lista = (ListView) findViewById(R.id.lblItem);
         listarFavoritos("http://proyectofinalhotel.000webhostapp.com/listarFav.php");
-      //  adaptador = new Adaptador(this, listaItem);
-       // lista.setAdapter(adaptador);
 
-
-/*        btnEliminar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),Configuracion.class);
-                startActivity(intent);
-            }
-        });*/
-
-        //eliminarFavorito("https://proyectofinalhotel.000webhostapp.com/eliminarFavorito.php");
 
     }
 
@@ -161,42 +149,10 @@ public class Favoritos extends AppCompatActivity {
 
     }
 
-    public void eliminarFavorito(String URL){
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.e("USU",response);
-                if (response.equalsIgnoreCase("Hotel eliminado de favoritos")) {
-                    Log.e("po",response);
-                    Toast.makeText(Favoritos.this, "Hotel eliminado de favoritos", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    Toast.makeText(Favoritos.this, "Ocurrio un error intentalo de nuevo", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("xxd",error.toString());
-                Toast.makeText(Favoritos.this,error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        })
-
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> parametros=new HashMap<String,String>();
-                parametros.put("usuario",Utilidades.getCorreo());
-                parametros.put("id_hotel",String.valueOf(Utilidades.getIdHotel()));
-                return parametros;
-            }
-        };
-
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+    public void refrescar(){
+        finish();
+        startActivity(getIntent());
 
     }
-
 
 }

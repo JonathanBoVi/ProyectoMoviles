@@ -194,7 +194,7 @@ public class Configuracion extends AppCompatActivity {
                         loading.dismiss();
 
                         //Showing toast
-                        Toast.makeText(Configuracion.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Configuracion.this, String.valueOf(volleyError.getMessage()), Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override

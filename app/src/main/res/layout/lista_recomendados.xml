@@ -58,6 +58,8 @@
                 android:layout_weight="1"
                 android:text="  Valoraciones"
                 android:textSize="10dp" />
+
+
         </LinearLayout>
 
 

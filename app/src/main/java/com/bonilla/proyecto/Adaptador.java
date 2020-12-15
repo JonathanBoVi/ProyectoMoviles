@@ -1,5 +1,6 @@
 package com.bonilla.proyecto;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Entity;
@@ -36,13 +37,13 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class Adaptador extends BaseAdapter{
-    private Context context;
-    private ArrayList<Hotel> listaItems;
+        private Context context;
+        private ArrayList<Hotel> listaItems;
 
-    public Adaptador(Context context, ArrayList<Hotel> listaItems) {
-        this.context = context;
-        this.listaItems = listaItems;
-    }
+        public Adaptador(Context context, ArrayList<Hotel> listaItems) {
+            this.context = context;
+            this.listaItems = listaItems;
+        }
 
     @Override
     public int getCount() {
@@ -61,7 +62,7 @@ public class Adaptador extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Hotel item = (Hotel) getItem(position);
+        final Hotel item = (Hotel) getItem(position);
         final Favoritos obj=new Favoritos();
 
 
@@ -82,14 +83,14 @@ public class Adaptador extends BaseAdapter{
         txtHotel.setText(item.getNombreHotel());
         txtDescripcion.setText(item.getDescripcionHotel());
 
-      /*  btnEliminar.setOnClickListener(new View.OnClickListener() {
+        btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                obj.eliminarFavorito("https://proyectofinalhotel.000webhostapp.com/eliminarFavorito.php");
+                eliminarFavorito("https://proyectofinalhotel.000webhostapp.com/eliminarFavorito.php",item.getIdHotel());
 
-            }
+                            }
         });
-*/
+
 
         Log.e("xdd",item.getNombreHotel());
         return convertView;
@@ -127,6 +128,50 @@ public class Adaptador extends BaseAdapter{
         }
     }
 
+    public void eliminarFavorito(String URL, final int id_hotel){
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("USU",response);
+                if (response.equalsIgnoreCase("Hotel eliminado de favoritos")) {
+
+                    Toast.makeText(context, "Hotel eliminado de favoritos", Toast.LENGTH_SHORT).show();
+
+
+
+                   Intent intent=new Intent(context,Favoritos.class);
+                    context.startActivity(intent);
+
+
+
+                } else {
+                    Toast.makeText(context, "Ocurrio un error intentalo de nuevo", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("xxd",error.toString());
+                Toast.makeText(context,error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        })
+
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String,String> parametros=new HashMap<String,String>();
+                parametros.put("usuario",Utilidades.getCorreo());
+                parametros.put("id_hotel",String.valueOf(id_hotel));
+                return parametros;
+            }
+        };
+
+        RequestQueue requestQueue= Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+
+    }
 
 
 
