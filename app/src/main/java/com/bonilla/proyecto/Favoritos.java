@@ -39,7 +39,7 @@ import java.util.Map;
 
 public class Favoritos extends AppCompatActivity {
 
-    Button btnInicio,btnRecomendado,btnConfiguracion;
+    Button btnInicio,btnRecomendado,btnConfiguracion,btnEliminar;
     private ListView lista;
     private Adaptador adaptador;
     int id;
@@ -58,6 +58,9 @@ public class Favoritos extends AppCompatActivity {
         btnConfiguracion= findViewById(R.id.btnConfiguracion);
         imgHotel= findViewById(R.id.imgHotel);
         nom=findViewById(R.id.txtNombreHotel);
+        btnEliminar=findViewById(R.id.btnEliminar);
+
+     /*   */
 
         btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +92,13 @@ public class Favoritos extends AppCompatActivity {
       //  adaptador = new Adaptador(this, listaItem);
        // lista.setAdapter(adaptador);
 
+     /* btnEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eliminarFavorito("https://proyectofinalhotel.000webhostapp.com/eliminarFavorito.php");
+
+            }
+        });*/
 
     }
 
@@ -147,26 +157,42 @@ public class Favoritos extends AppCompatActivity {
 
     }
 
-   /* private ArrayList<Hotel> GetArrayItem(){
+    private void eliminarFavorito(String URL){
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("USU",response);
+                if (!response.isEmpty()) {
+                    Log.e("po",response);
+                    Toast.makeText(Favoritos.this, "Hotel eliminado de favoritos", Toast.LENGTH_SHORT).show();
 
-        try {
-            JSONArray jsonArr = new JSONArray();
-            for (int i = 0; i < jsonArr.length(); i++) {
-                JSONObject objeto = jsonArr.getJSONObject(i);
-                nombre = objeto.getString("h.nombre");
-                descripcion = objeto.getString("h.descripcion");
+                } else {
+                    Toast.makeText(Favoritos.this, "Ocurrio un error intentalo de nuevo", Toast.LENGTH_SHORT).show();
+                }
+
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        ArrayList<Hotel> listaItem = new ArrayList<>();
-        listaItem.add(new Hotel(R.drawable.winmeier, "Win Meier", "Av. Francisco Bolognesi 756"));
-        listaItem.add(new Hotel(R.drawable.lancelot, "Lancelot", "Alfonso Ugarte 639"));
-        listaItem.add(new Hotel(R.drawable.mochiks, "Mochiks", "Tacna 615"));
-        listaItem.add(new Hotel(R.drawable.tumbasreales, "Hotel Tumbas Reales", "calle Andalucia 198 - 208 urb"));
-        listaItem.add(new Hotel(R.drawable.sunec, "Sunec Hotel Chiclayo", "Manuel María Izaga 472"));
-        return listaItem;
-    }*/
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("xxd",error.toString());
+                Toast.makeText(Favoritos.this,error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        })
+
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros=new HashMap<String,String>();
+                parametros.put("usuario",Utilidades.getCorreo());
+                parametros.put("id_hotel",String.valueOf(Utilidades.getIdHotel()));
+                return parametros;
+            }
+        };
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+    }
 
 
 }
